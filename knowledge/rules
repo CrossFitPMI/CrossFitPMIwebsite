@@ -1,0 +1,6 @@
+rules:
+  - Always import and use the Button component for any buttons. Do NOT create new button styles.
+  - For text elements (headings, paragraphs), always apply typography classes defined in `global.css` (e.g., .heading-xl, .heading-lg, .body-text).
+  - Do NOT hardcode font sizes or weights in class names. Use the predefined typography classes instead.
+  - Do NOT use inline styles for text or buttons.
+  - ALWAYS import and use data from `lib/gym-config.ts` for all gym information (name, email, address, phone, hours, social links, etc.). NEVER type gym data manually - use the gymConfig object and its properties.
