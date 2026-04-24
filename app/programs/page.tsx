@@ -4,17 +4,14 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Clock, Check, CheckCircle, Dumbbell, Heart, Trophy, Target, Zap, Activity, X } from 'lucide-react';
+import { ArrowRight, Clock, Check, Dumbbell, Heart, Trophy, Target, Zap, Activity, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { gymConfig } from '@/lib/gym-config';
-import { useFormProtection } from '@/hooks/useFormProtection';
-import RecaptchaWidget from '@/components/ui/RecaptchaWidget';
 
 const programs = [
   {
     id: 'sweat',
     name: 'Sweat',
-    cta: { label: 'Get Pricing', href: 'sweat', target: '_sweat_modal' },
+    cta: { label: 'Book a Class', href: 'calendar', target: '_modal' },
     tagline: 'CrossFit-Style Training for Every Fitness Level',
     image: '/programs/sweat.jpg',
     icon: Dumbbell,
@@ -215,201 +212,8 @@ const programs = [
 
 const BOOKING_URL = 'https://api.gymgrow.app/widget/booking/f8OQxOoGIvOSdAS0sWNg';
 
-function SweatFormModal({ onClose }: { onClose: () => void }) {
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const protection = useFormProtection(30);
-
-  useEffect(() => {
-    const body = document.body as HTMLBodyElement;
-    body.style.overflow = 'hidden';
-    return () => {
-      body.style.overflow = '';
-    };
-  }, []);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const submitCheck = protection.canSubmit();
-    if (!submitCheck.allowed) return;
-    protection.handleSubmitStart();
-    try {
-      const response = await fetch(gymConfig.sweatWebhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          program: 'Sweat',
-          recaptchaToken: protection.recaptchaToken,
-        }),
-      });
-      if (response.ok) {
-        protection.handleSubmitSuccess();
-        setIsSubmitted(true);
-        setFormData({ first_name: '', last_name: '', email: '', phone: '' });
-      } else {
-        protection.handleSubmitError();
-        alert('There was an error submitting your request. Please try again.');
-      }
-    } catch (error) {
-      console.error('Sweat form submission error:', error);
-      protection.handleSubmitError();
-      alert('There was an error submitting your request. Please try again.');
-    }
-  };
-
-  return createPortal(
-    <>
-      <div
-        className="fixed inset-0 z-40 bg-black/75 backdrop-blur-md"
-        onClick={onClose}
-      />
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-8 duration-300">
-          <button
-            onClick={onClose}
-            className="absolute top-5 right-5 z-10 p-2 text-gray-500 hover:text-black hover:bg-gray-100 rounded-full transition-all duration-300"
-            aria-label="Close form"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          <div className="p-8">
-            <div className="inline-flex items-center gap-2 mb-5">
-              <div className="h-px w-6" style={{ background: '#ED1707' }} />
-              <span className="caption-lg font-semibold uppercase tracking-widest" style={{ color: '#ED1707' }}>Sweat Program</span>
-              <div className="h-px w-6" style={{ background: '#ED1707' }} />
-            </div>
-
-            <h2 className="display-sm text-black mb-2">Membership Pricing</h2>
-            <p className="body-sm text-gray-500 mb-8">
-              Fill in your details below and we&apos;ll send you our membership pricing straight away.
-            </p>
-
-            {isSubmitted ? (
-              <div className="py-10 text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
-                </div>
-                <h3 className="heading-xl text-black mb-2">Pricing Sent!</h3>
-                <p className="body-md text-gray-600 mb-6">
-                  Thanks! Check your inbox — we&apos;ve sent you the membership pricing.
-                </p>
-                <Button variant="primary" onClick={onClose}>Close</Button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="sweat_first_name" className="block caption-lg text-black mb-2">First Name *</label>
-                    <input
-                      type="text"
-                      id="sweat_first_name"
-                      name="first_name"
-                      required
-                      value={formData.first_name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-black placeholder-gray-500 focus:border-black focus:ring-black/20 focus:outline-none focus:ring-2 transition-all duration-300"
-                      placeholder="First name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="sweat_last_name" className="block caption-lg text-black mb-2">Last Name *</label>
-                    <input
-                      type="text"
-                      id="sweat_last_name"
-                      name="last_name"
-                      required
-                      value={formData.last_name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-black placeholder-gray-500 focus:border-black focus:ring-black/20 focus:outline-none focus:ring-2 transition-all duration-300"
-                      placeholder="Last name"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="sweat_email" className="block caption-lg text-black mb-2">Email Address *</label>
-                  <input
-                    type="email"
-                    id="sweat_email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-black placeholder-gray-500 focus:border-black focus:ring-black/20 focus:outline-none focus:ring-2 transition-all duration-300"
-                    placeholder="Enter your email"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="sweat_phone" className="block caption-lg text-black mb-2">Phone Number *</label>
-                  <input
-                    type="tel"
-                    id="sweat_phone"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-black placeholder-gray-500 focus:border-black focus:ring-black/20 focus:outline-none focus:ring-2 transition-all duration-300"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-center">
-                    <RecaptchaWidget
-                      onVerify={(token) => {
-                        protection.setRecaptchaToken(token);
-                        if (token) protection.clearError();
-                      }}
-                      theme="light"
-                      size="normal"
-                    />
-                  </div>
-                  {protection.errorMessage && (
-                    <div className="text-center">
-                      <p className="text-red-500 text-sm font-medium">{protection.errorMessage}</p>
-                    </div>
-                  )}
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="default"
-                  className="w-full"
-                  disabled={protection.isSubmitting}
-                >
-                  {protection.isSubmitting ? 'Submitting...' : 'Send Me the Pricing'}
-                  {!protection.isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
-                </Button>
-
-                <p className="caption-md text-gray-500 text-center">
-                  By submitting this form, you agree to receive communications from {gymConfig.name}. You can unsubscribe at any time.
-                </p>
-              </form>
-            )}
-          </div>
-        </div>
-      </div>
-    </>,
-    document.body
-  );
-}
-
 export default function ProgramsPage() {
   const [showBookingModal, setShowBookingModal] = useState(false);
-  const [showSweatModal, setShowSweatModal] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const scrollYRef = useRef(0);
 
@@ -451,8 +255,6 @@ export default function ProgramsPage() {
   const handleCta = (cta: { href: string; target: string }) => {
     if (cta.target === '_modal') {
       setShowBookingModal(true);
-    } else if (cta.target === '_sweat_modal') {
-      setShowSweatModal(true);
     } else if (cta.target === '_blank') {
       window.open(cta.href, '_blank', 'noopener,noreferrer');
     } else {
@@ -760,9 +562,6 @@ export default function ProgramsPage() {
         </div>
       </>,
       document.body
-    )}
-    {isMounted && showSweatModal && (
-      <SweatFormModal onClose={() => setShowSweatModal(false)} />
     )}
     </>
   );
