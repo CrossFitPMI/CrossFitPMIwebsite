@@ -214,7 +214,7 @@ export const gymConfig: GymConfig = {
   urls: {
     website: 'https://www.crossfitpmi.com',
     booking: '/join',
-    consultation: 'https://api.gymgrow.app/widget/booking/f8OQxOoGIvOSdAS0sWNg',
+    consultation: 'https://revenueos.gymgrow.ai/f/crossfit-pmi-discovery-meeting-source-web?direct=1',
     services: '/services',
     about: '/about',
     contact: '/contact'

@@ -8,8 +8,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { gymConfig } from '@/lib/gym-config';
-import { useFormProtection } from '@/hooks/useFormProtection';
-import RecaptchaWidget from '@/components/ui/RecaptchaWidget';
 import { cn } from '@/lib/utils';
 
 interface EBook {
@@ -41,7 +39,7 @@ function OrderModal({
     phone: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const protection = useFormProtection(30);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const body = document.body as HTMLBodyElement;
@@ -59,10 +57,7 @@ function OrderModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const submitCheck = protection.canSubmit();
-    if (!submitCheck.allowed) return;
-
-    protection.handleSubmitStart();
+    setIsSubmitting(true);
 
     try {
       const response = await fetch(gymConfig.ebooksWebhookUrl, {
@@ -73,22 +68,20 @@ function OrderModal({
           ebook_id: book.id,
           ebook_name: book.name,
           ebook_tag: book.tag,
-          recaptchaToken: protection.recaptchaToken,
         }),
       });
 
       if (response.ok) {
-        protection.handleSubmitSuccess();
         setIsSubmitted(true);
         setFormData({ first_name: '', last_name: '', email: '', phone: '' });
       } else {
-        protection.handleSubmitError();
         alert('There was an error submitting your request. Please try again.');
       }
     } catch (error) {
       console.error('E-book order submission error:', error);
-      protection.handleSubmitError();
       alert('There was an error submitting your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -222,36 +215,15 @@ function OrderModal({
                   />
                 </div>
 
-                {/* reCAPTCHA */}
-                <div className="space-y-2">
-                  <div className="flex justify-center">
-                    <RecaptchaWidget
-                      onVerify={(token) => {
-                        protection.setRecaptchaToken(token);
-                        if (token) protection.clearError();
-                      }}
-                      theme="light"
-                      size="normal"
-                    />
-                  </div>
-                  {protection.errorMessage && (
-                    <div className="text-center">
-                      <p className="text-red-500 text-sm font-medium">
-                        {protection.errorMessage}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
                 <Button
                   type="submit"
                   variant="primary"
                   size="default"
                   className="w-full"
-                  disabled={protection.isSubmitting}
+                  disabled={isSubmitting}
                 >
-                  {protection.isSubmitting ? 'Submitting...' : 'Request E-Book'}
-                  {!protection.isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
+                  {isSubmitting ? 'Submitting...' : 'Request E-Book'}
+                  {!isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
                 </Button>
 
                 <p className="caption-md text-gray-500 text-center">

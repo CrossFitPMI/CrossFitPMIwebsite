@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import TrialForm from '@/components/TrialForm';
+import ConsultationEmbed from '@/components/ConsultationEmbed';
 import { gymConfig } from '@/lib/gym-config';
 import { WhatsAppIcon } from '@/components/WhatsAppChatButton';
 import MapSection from '@/components/MapSection';
@@ -88,10 +88,10 @@ export default function ContactPage() {
       {/* Contact Information & Form */}
       <section className="section-padding bg-white section-container">
         <div className="content-width container-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
 
             {/* Contact Information */}
-            <div className="slide-in-left">
+            <div className="slide-in-left lg:col-span-2">
               <h2 className="display-md text-black mb-8 fade-in-up">
                 Visit Our Gym
               </h2>
@@ -200,15 +200,9 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="slide-in-right h-full flex items-center justify-center">
-              <div className="bg-gray-50 rounded-3xl p-8 scale-in w-full max-w-xl">
-                <TrialForm
-                  title="Contact Us"
-                  description="Fill out the form below and we'll get back to you as soon as possible."
-                  buttonText="Find out more"
-                  theme="light"
-                  size="default"
-                />
+            <div className="slide-in-right lg:col-span-3 h-full flex items-center justify-center">
+              <div className="scale-in w-full">
+                <ConsultationEmbed />
               </div>
             </div>
           </div>

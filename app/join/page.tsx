@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { CheckCircle, Users, Award, Zap, Target, Star, Heart } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import TrialForm from '@/components/TrialForm';
+import ConsultationEmbed from '@/components/ConsultationEmbed';
 import { gymConfig } from '@/lib/gym-config';
 
 const benefits = [
@@ -129,14 +129,8 @@ export default function JoinPage() {
        <section className="pb-20 section-container">
         <div className="content-width container-padding">
           <div className="max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 scale-in">
-              <TrialForm 
-                title="Find Out How We Can Help"
-                description="Fill out the form below and we'll contact you within 10 minutes to get you started"
-                buttonText="Get Started Today"
-                theme="dark"
-                size="default"
-              />
+            <div className="scale-in w-full">
+              <ConsultationEmbed />
             </div>
           </div>
         </div>

@@ -37,8 +37,7 @@ lib/
 └── utils.ts              # Utility functions (cn, etc.)
 
 hooks/
-├── use-toast.ts          # Toast notifications
-└── useFormProtection.ts  # Form spam protection
+└── use-toast.ts          # Toast notifications
 ```
 
 ## Design System - CONSISTENCY RULES
@@ -181,7 +180,7 @@ hooks/
 - Use **Zod** for validation schemas
 - Use **shadcn/ui** form components
 - Show validation errors inline
-- Use `useFormProtection` hook for spam prevention
+- Consultation bookings use `ConsultationEmbed` (an iframe of the CRM calendar at `gymConfig.urls.consultation`), not a form
 
 ### Icons
 
@@ -194,7 +193,7 @@ hooks/
 ### Files
 - **Components**: `PascalCase.tsx` (e.g., `Hero.tsx`, `AboutSection.tsx`)
 - **Utilities**: `kebab-case.ts` (e.g., `gym-config.ts`, `utils.ts`)
-- **Hooks**: `useCamelCase.ts` (e.g., `useFormProtection.ts`)
+- **Hooks**: `useCamelCase.ts` (e.g., `useMediaQuery.ts`)
 
 ### Code
 - **Components**: `PascalCase` (e.g., `Hero`, `ProgramCard`)
