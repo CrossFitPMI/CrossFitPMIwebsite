@@ -179,9 +179,9 @@ export const gymConfig: GymConfig = {
 
   // Contact Information
   contact: {
-    phone: '+353 61 788 386',
+    phone: '+353 61 788 871',
     email: 'info@crossfitpmi.com',
-    whatsapp: '+353 61 788 386',
+    whatsapp: '+353 61 788 871',
     address: {
       street: 'Unit 6C, Docklands Business Park',
       city: 'Limerick',
