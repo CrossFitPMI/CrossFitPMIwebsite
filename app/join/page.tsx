@@ -130,7 +130,7 @@ export default function JoinPage() {
         <div className="content-width container-padding">
           <div className="max-w-2xl mx-auto">
             <div className="scale-in w-full">
-              <ConsultationEmbed />
+              <ConsultationEmbed direct />
             </div>
           </div>
         </div>

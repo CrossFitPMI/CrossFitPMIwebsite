@@ -41,6 +41,7 @@ export interface GymConfig {
     website: string;
     booking: string;
     consultation: string;
+    consultationDirect: string;
     services: string;
     about: string;
     contact: string;
@@ -214,7 +215,9 @@ export const gymConfig: GymConfig = {
   urls: {
     website: 'https://www.crossfitpmi.com',
     booking: '/join',
-    consultation: 'https://revenueos.gymgrow.ai/f/crossfit-pmi-discovery-meeting-source-web?direct=1',
+    // Without ?direct=1 the widget asks for contact details before it shows the calendar
+    consultation: 'https://revenueos.gymgrow.ai/f/crossfit-pmi-discovery-meeting-source-web',
+    consultationDirect: 'https://revenueos.gymgrow.ai/f/crossfit-pmi-discovery-meeting-source-web?direct=1',
     services: '/services',
     about: '/about',
     contact: '/contact'
