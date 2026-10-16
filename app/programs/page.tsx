@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Clock, Check, Dumbbell, Heart, Trophy, Target, Zap, Activity, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { gymConfig } from '@/lib/gym-config';
 
 const programs = [
   {
@@ -209,8 +210,6 @@ const programs = [
     ],
   },
 ];
-
-const BOOKING_URL = 'https://api.gymgrow.app/widget/booking/f8OQxOoGIvOSdAS0sWNg';
 
 export default function ProgramsPage() {
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -536,20 +535,19 @@ export default function ProgramsPage() {
           onClick={() => setShowBookingModal(false)}
         />
         <div className="fixed mt-12 inset-0 z-50 flex items-center justify-center p-4 overscroll-contain">
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] h-[80vh] overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-300 flex flex-col">
+          <div className="relative bg-[var(--color-bg-secondary)] rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] h-[80vh] overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-300 flex flex-col">
             <button
               onClick={() => setShowBookingModal(false)}
-              className="absolute top-6 right-6 z-10 p-3 text-gray-600 hover:text-black hover:bg-gray-100 rounded-full transition-all duration-300 shadow-lg"
+              className="absolute top-6 right-6 z-10 p-3 text-white/70 hover:text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-full transition-all duration-300"
               aria-label="Close booking calendar"
             >
               <X className="w-6 h-6" />
             </button>
-            <div className="p-8 border-b border-gray-200 bg-gray-50 flex-shrink-0">
-              <h3 className="heading-lg text-black mb-3">Book your class with our team</h3>
-            </div>
+            {/* The widget shows its own title, so this heading is only for screen readers */}
+            <h3 className="sr-only">Book your consultation with our team</h3>
             <div className="flex-1 overflow-auto">
               <iframe
-                src={BOOKING_URL}
+                src={gymConfig.urls.consultationDirect}
                 width="100%"
                 height="100%"
                 frameBorder="0"

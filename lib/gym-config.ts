@@ -159,9 +159,6 @@ export interface GymConfig {
   // E-Books Webhook
   ebooksWebhookUrl: string;
 
-  // Sweat Program Webhook
-  sweatWebhookUrl: string;
-
   // SEO/Meta Information
   seo: {
     title: string;
@@ -579,9 +576,6 @@ export const gymConfig: GymConfig = {
 
   // E-Books Webhook
   ebooksWebhookUrl: 'https://services.leadconnectorhq.com/hooks/x2SQfuNunTMD3qCk5Yam/webhook-trigger/caQrIAi0vEFgNJyBW3lq',
-
-  // Sweat Program Webhook
-  sweatWebhookUrl: 'https://services.leadconnectorhq.com/hooks/x2SQfuNunTMD3qCk5Yam/webhook-trigger/79XVGIWnCMlV0qgltVBo',
 
   // SEO/Meta Information
   seo: {
