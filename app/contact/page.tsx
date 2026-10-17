@@ -170,7 +170,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* WhatsApp */}
-                <div className="flex items-start space-x-4 animate-on-scroll">
+                {/* <div className="flex items-start space-x-4 animate-on-scroll">
                   <div onClick={handleClick} className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0 scale-in cursor-pointer group">
                     <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7 group-hover:animate-bounce" />
                   </div>
@@ -179,7 +179,7 @@ export default function ContactPage() {
                     <p className="body-md text-gray-600">{gymConfig.contact.whatsapp}</p>
                     <p className="caption-md text-gray-500 mt-1">Quick questions? Message us!</p>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Hours */}
                 <div className="flex items-start space-x-4 animate-on-scroll">
