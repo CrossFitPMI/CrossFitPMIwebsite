@@ -22,11 +22,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
-  },
   openGraph: {
     title: `${gymConfig.name} - ${gymConfig.tagline}`,
     description: gymConfig.description,
@@ -88,18 +83,14 @@ const jsonLd = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: '51.5074',
-    longitude: '-0.1278',
+    latitude: '52.6567717',
+    longitude: '-8.6392852',
   },
   // Opening hours vary by location - see contact page for specific hours
-  priceRange: '£49-£149',
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '400',
-  },
+  hasMap: 'https://maps.app.goo.gl/vsC19MEhCF4P4cTH8',
   sameAs: [
     gymConfig.social.instagram,
+    'https://maps.app.goo.gl/vsC19MEhCF4P4cTH8',
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
@@ -192,7 +183,7 @@ export default function RootLayout({
           `}
         </Script>
         {children}
-        {/* <WhatsAppChatButton /> */}
+        <WhatsAppChatButton />
       </body>
     </html>
   );
