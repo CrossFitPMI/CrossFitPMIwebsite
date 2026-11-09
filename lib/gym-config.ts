@@ -181,7 +181,7 @@ export const gymConfig: GymConfig = {
     phone: '+353 61 788 871',
     email: 'info@crossfitpmi.com',
     whatsapp: '+353 61 788 871',
-    whatsappMessage: "Hi, I found you on the CrossFit PMI website and I'd like to know more.",
+    whatsappMessage: "Hi, I was looking through the CrossFit PMI website and I’d like to know more.",
     address: {
       street: 'Unit 6C, Docklands Business Park',
       city: 'Limerick',
