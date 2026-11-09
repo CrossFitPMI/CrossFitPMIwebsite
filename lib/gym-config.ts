@@ -142,6 +142,7 @@ export interface GymConfig {
     journeyContent: string[];
   };
 
+  googleReviews: { rating: string; count: number; url: string };
   // Testimonials / Google Reviews
   testimonials: Array<{
     name: string;
@@ -473,6 +474,13 @@ export const gymConfig: GymConfig = {
       'Our trainers are passionate and knowledgeable, helping you know what to do, keeping you on track. They celebrate with you every time you reach the next level!',
       'We don’t believe in quick fixes or gimmicks. We care about your long-term success above all else.'
     ]
+  },
+
+  // Google rating shown on the homepage. Update the count every so often.
+  googleReviews: {
+    rating: '5.0',
+    count: 146,
+    url: 'https://maps.app.goo.gl/vsC19MEhCF4P4cTH8',
   },
 
   // Testimonials / Google Reviews
