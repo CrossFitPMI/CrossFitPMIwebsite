@@ -26,7 +26,7 @@ export default function WhatsAppChatButton() {
   const handleClick = () => {
     // Always open WhatsApp regardless of device
     const whatsappNumber = gymConfig.contact.whatsapp.replace(/\s+/g, '').replace('+', '');
-    window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(gymConfig.contact.whatsappMessage)}`, '_blank');
   };
 
   return (
